@@ -1,0 +1,70 @@
+- hosts: docker
+
+  vars:
+    wordpress_installs:
+      - name: wordpress
+        dbname: wordpress
+        dbuser: wordpress
+        dbpass: 'heCrE7*d2KEs'
+        dbhost: "{{ hostvars[inventory_hostname].ansible_default_ipv4.address }}"
+        path: /var/www/html
+        url: "http://{{ hostvars[inventory_hostname].ansible_default_ipv4.address }}"
+        title: wordpress
+        admin_name: admin
+        admin_email: root@localhost.localdomain
+        admin_password: 'tuFr8=aPra@a'
+        themes:
+          - name: twentytwelve
+            activate: true
+          - name: twentythirteen
+        plugins:
+          - name: contact-form-7
+            activate: false
+          #- name: simple-fields
+        users: {}
+        options: []
+        queries: []
+
+    mysql_databases:                                                                
+       - name: wordpress                                                            
+         collation: utf8_general_ci                                                 
+         encoding: utf8                                                             
+         replicate: 1                                                               
+                                                                                    
+    mysql_users:                                                                    
+       - name: wordpress                                                               
+         host: "%"                                                                  
+         password: 'heCrE7*d2KEs'                                                        
+         priv: "*.*:ALL"        
+
+
+  pre_tasks:
+    - name: install php
+      apt:
+        name: php
+        state: present
+    - name: install php
+      apt:
+        name: php8.1-mysql
+        state: present
+    - name: install cron
+      apt:
+        name: cron
+        state: present
+
+    - name: install alll
+      apt:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - net-tools
+        - iproute2
+        - vim
+        - less
+
+  roles:
+    - role: geerlingguy.mysql
+      #service mysql restart
+
+    - role: oefenweb.wordpress
+
