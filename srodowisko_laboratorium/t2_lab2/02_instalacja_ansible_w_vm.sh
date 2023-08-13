@@ -1,4 +1,5 @@
 #!/bin/bash
+set -x
 
 # na hoscie (opcjonalnie zaleznie od uprawnien, moze wystapic koniecznosc wywolania ponizszych komend z sudo)
 # podlaczenie sie do kontenera
@@ -16,6 +17,6 @@ pip3 install ansible
 ansible --version
 
 
-# jesli nie montowalismy katalogu z hosta, to dla spojnosci z instrukcja utworzymy ten folder
-mkdir /katalog || true
+# jesli nie montowalismy katalogu z hosta komenda 'docker run -v' , to dla spojnosci z instrukcja utworzymy ten folder
+mkdir -p /katalog
 

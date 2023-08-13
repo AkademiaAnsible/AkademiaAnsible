@@ -1,4 +1,5 @@
 #!/bin/bash
+set -x
 
 #na hoscie (opcjonalnie zaleznie od uprawnien, moze wystapic koniecznosc wywolania ponizszych komend z sudo)
 mkdir ~/katalog/
